@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ngaji Kelompok</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1fb;--card:#fff;--ink:#0f172a;--mut:#64748b;--blue:#1d3fe0;--blue2:#4f6bff;--soft:#eef1fb;--red:#d11a3a;--green:#16a34a;--line:#e5e9f5;--shadow:0 8px 24px rgba(29,63,224,.08)}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1226;--card:#161d38;--ink:#eef1ff;--mut:#9aa6c8;--soft:#1f2748;--line:#262f55;--shadow:0 8px 24px rgba(0,0,0,.3)}}
+*{box-sizing:border-box;margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink);min-height:100vh;padding-top:env(safe-area-inset-top,0)}
+#app{max-width:480px;margin:auto;padding:16px 16px 110px}
+.card{background:var(--card);border-radius:22px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}
+.hero{background:linear-gradient(135deg,#1d3fe0,#3b5bff 60%,#6a85ff);color:#fff;border-radius:26px;padding:20px;margin-bottom:14px;box-shadow:0 14px 30px rgba(29,63,224,.3)}
+.hero h2{font-size:22px;font-weight:800}.hero p{opacity:.85;font-size:13px;margin-top:2px}
+.row{display:flex;align-items:center;gap:10px}.sp{justify-content:space-between}
+.mut{color:var(--mut);font-size:12px}.b{font-weight:700}
+.btn{border:0;background:var(--blue);color:#fff;font-weight:700;border-radius:999px;padding:10px 18px;font-size:14px;cursor:pointer}
+.btn.w{background:#fff;color:var(--blue);width:100%;padding:13px}.btn.g{background:var(--soft);color:var(--blue)}.btn.r{background:#fde8ec;color:var(--red)}.btn.full{width:100%;padding:14px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px}
+.chip{white-space:nowrap;padding:9px 14px;border-radius:999px;background:var(--card);font-size:13px;font-weight:600;cursor:pointer;box-shadow:var(--shadow)}.chip.on{background:#0f172a;color:#fff}
+.bar{height:7px;border-radius:9px;background:var(--soft);overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;border-radius:9px;background:var(--blue)}
+.bar.red i{background:var(--red)}.bar.grn i{background:var(--green)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:rgba(255,255,255,.16);border-radius:16px;padding:10px;text-align:center}.stat b{font-size:20px;display:block}.stat span{font-size:11px;opacity:.85}
+.stats.l .stat{background:var(--soft)}.stats.l .stat span{color:var(--mut)}
+.tag{background:var(--soft);padding:5px 10px;border-radius:999px;font-size:11px;font-weight:700}
+.item{display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--line);cursor:pointer}.item:last-child{border:0}
+.ic{width:38px;height:38px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:18px}
+input,select,textarea{width:100%;border:1.5px solid transparent;background:var(--soft);color:var(--ink);padding:13px 14px;border-radius:14px;font-size:14px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue2)}label{font-size:12px;font-weight:700;display:block;margin:12px 0 6px}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0));background:#0f172a;border-radius:999px;padding:8px;display:flex;gap:4px;box-shadow:0 14px 30px rgba(0,0,0,.3);z-index:5}
+nav button{border:0;background:none;color:#cbd5e1;padding:10px 18px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}nav button.on{background:var(--blue);color:#fff}
+.back{background:var(--card);border:0;width:38px;height:38px;border-radius:50%;box-shadow:var(--shadow);font-size:18px;cursor:pointer;color:var(--ink)}
+.ov{position:fixed;inset:0;background:rgba(10,15,40,.5);display:flex;align-items:flex-end;justify-content:center;z-index:10}
+.sh{background:var(--card);width:100%;max-width:480px;border-radius:28px 28px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0));max-height:88vh;overflow:auto}
+.sh h3{font-size:18px;margin-bottom:4px}
+.seg{display:flex;gap:6px}.seg button{flex:1;border:0;padding:9px;border-radius:12px;font-weight:700;background:var(--soft);color:var(--mut);cursor:pointer}
+.seg .H.on{background:var(--green);color:#fff}.seg .I.on{background:#f59e0b;color:#fff}.seg .A.on{background:var(--red);color:#fff}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 20% 0,#dfe6ff,transparent 50%),var(--bg)}
+.login .card{width:100%;max-width:380px;padding:26px}.logo{width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,#1d3fe0,#6a85ff);display:grid;place-items:center;font-size:32px;margin:0 auto 12px;box-shadow:0 10px 24px rgba(29,63,224,.35)}
+.err{color:var(--red);font-size:13px;margin-top:10px;text-align:center}
+.ro{background:#fff7e0;color:#8a5a00;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:600;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+#print{display:none}
+#print .rp{font-size:12px;line-height:1.5;color:#0f172a;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#print .rp-top{background:linear-gradient(135deg,#1d3fe0,#4f6bff 60%,#8aa0ff);border-radius:22px;padding:22px 20px 54px;text-align:center;position:relative;overflow:hidden}
+#print .rp-top:before{content:"";position:absolute;right:-40px;top:-50px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.13)}
+#print .rp-top:after{content:"";position:absolute;left:-30px;bottom:-70px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.1)}
+#print .rp-top *{color:#fff;position:relative}
+#print .rp-bas{font-size:20px;opacity:.92}#print .rp-top h1{font-size:30px;letter-spacing:8px;margin:4px 0 0;font-weight:800}#print .rp-sub{font-size:11px;opacity:.9;letter-spacing:1px}
+#print .rp-id{background:#fff;border:1px solid #dfe5fb;border-radius:18px;box-shadow:0 8px 22px rgba(29,63,224,.16);margin:-36px 20px 14px;padding:14px 18px;position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#print .rp-lbl{font-size:10px;color:#8a96b8;text-transform:uppercase;letter-spacing:1.5px}#print .rp-name{font-size:22px;font-weight:800;color:#1d3fe0}#print .rp-meta{font-size:11px;color:#64748b}
+#print .rp-grade{width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,#f59e0b,#fbbf24);text-align:center;display:grid;place-content:center;color:#fff}#print .rp-grade b{font-size:30px;line-height:1;color:#fff}#print .rp-grade span{font-size:8px;color:#fff}
+#print .rp-rings{display:flex;justify-content:space-around;margin:16px 0 4px}#print .rp-ring{text-align:center;font-size:11px;font-weight:700;color:#475569}
+#print .rp-c{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;position:relative;margin:0 auto 4px}#print .rp-c:before{content:"";position:absolute;inset:9px;background:#fff;border-radius:50%}#print .rp-c b{position:relative;font-size:19px;color:#1d3fe0}
+#print .rp-sec{font-weight:800;color:#1d3fe0;font-size:13px;margin:14px 0 8px;display:flex;align-items:center;gap:8px}#print .rp-sec:after{content:"";flex:1;height:1px;background:#dfe5fb}
+#print .rp-pills span{display:inline-block;padding:5px 12px;border-radius:99px;background:#eef1fb;font-size:11px;font-weight:700;margin-right:6px}#print .rp-pills .ok{background:#dcfce7;color:#166534}#print .rp-pills .iz{background:#fef3c7;color:#92400e}#print .rp-pills .al{background:#fde8ec;color:#9f1239}
+#print .rp-row{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:3px}#print .rp-bar{height:8px;background:#eef1fb;border-radius:9px;overflow:hidden;margin-bottom:5px}#print .rp-bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#1d3fe0,#6a85ff)}
+#print .rp-chip{display:inline-block;padding:2px 9px;border-radius:99px;font-size:10px;margin:2px 3px 2px 0;background:#eef1fb;color:#64748b}#print .rp-chip.ok{background:#dcfce7;color:#166534}
+#print .rp-tl{border-left:2px solid #c9d3ff;padding-left:12px;font-size:11px}#print .rp-tl div{margin-bottom:5px;position:relative}#print .rp-tl div:before{content:"";position:absolute;left:-17px;top:5px;width:8px;height:8px;border-radius:50%;background:#1d3fe0}
+#print .rp-note{background:#f5f7ff;border-left:4px solid #1d3fe0;border-radius:10px;padding:10px 14px;font-style:italic}
+#print .rp-sign{display:flex;justify-content:space-around;margin-top:22px;text-align:center;font-size:11px}#print .rp-sign div{width:30%}#print .rp-sign hr{border:0;border-top:1px solid #0f172a;margin:42px 0 4px}
+#print .rp-ft{text-align:center;color:#8a96b8;font-size:10px;margin-top:16px;letter-spacing:1px}#print .rp-box{break-inside:avoid}
+@media print{body{background:#fff}#app,nav,.ov{display:none!important}#print{display:block!important;padding:20px;color:#000}#print{-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:12mm}#print h1{font-size:22px;color:#1d3fe0}#print h2{font-size:15px;margin:18px 0 6px}#print table{margin-bottom:10px}#print th{background:#eef1fb}}
+</style>
+</head>
+<body>
+<div id="app"></div><div id="print"></div>
+<script>
+const DEFAULT_API='https://script.google.com/macros/s/AKfycby1LH6gGmVoohqruY95Ns-nctuJZTp-Xe4FvzvRc5E1fE_rQoP6blOyDCwmix-1qTdemQ/exec'; // opsional: tempel URL Apps Script (/exec) di sini agar semua perangkat otomatis terhubung
+const KEY='ngaji_db_v1',SKEY='ngaji_session',CFG='ngaji_sheet';
+const today=()=>new Date().toISOString().slice(0,10);
+const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+function seed(){const d=[];for(let i=0;i<6;i++){const t=new Date();t.setDate(t.getDate()-i*3);d.push(t.toISOString().slice(0,10))}
+ const mk=(id,nama,tingkat,guru,names)=>{const murid=names.map(n=>({id:uid(),nama:n}));const absen={};d.forEach((x,i)=>{absen[x]={};murid.forEach((m,j)=>absen[x][m.id]=(i+j)%5==0?'A':(i+j)%7==0?'I':'H')});
+ const target=[['Hafalan Doa Tidur','Hafalan Doa'],['Hafalan Surat Pendek','Hafalan Surat'],['Bacaan Tilawati','Bacaan Tilawati/Qur’an']].map(([n,c])=>({id:uid(),nama:n,kat:c}));const capaian={};murid.forEach((m,j)=>{capaian[m.id]={};target.forEach((t,k)=>capaian[m.id][t.id]=(j+k)%2==0)});
+ return{id,nama,tingkat,desa:'Selatan',daerah:'Banjarbaru',guru,murid,absen,target,capaian,jurnal:[{tgl:d[0],teks:'Membaca Asmaul Husna dan hafalan doa'},{tgl:d[3],teks:'Latihan menulis dan membaca Tilawati'}]}};
+ return{kelompok:[mk(uid(),'Muda/i Palam','Muda-Mudi','Akbar',['Adam','Ilyas','Isa','Musa','Nuh']),mk(uid(),'Usman Palam','Usia Nikah','Akbar',['Hanif','Atan','Echa']),mk(uid(),'CBR Somagede','Caberawit','Ustadzah Fitri',['Faqih','Fatir','Almer'])]}}
+let db=JSON.parse(localStorage.getItem(KEY)||'null')||seed();
+let S=JSON.parse(localStorage.getItem(SKEY)||'null');
+let st={view:'home',gid:null,mid:null,filter:'Semua',tab:'kehadiran',err:''};
+const cfg=()=>DEFAULT_API||localStorage.getItem(CFG)||'';
+const save=()=>{localStorage.setItem(KEY,JSON.stringify(db));push()};
+const canEdit=()=>S&&(S.role==='owner'||S.role==='guru');
+const roleLabel={owner:'Owner (Admin)',guru:'Guru',ortu:'Orang Tua'};
+
+/* ---------- Login & Google Sheet ---------- */
+const DEMO=[{role:'owner',username:'admin',password:'admin123'},{role:'guru',username:'Akbar',password:'guru123'},{role:'ortu',username:'Adam',password:'ortu123'}];
+function parseCSV(t){return t.trim().split(/\r?\n/).map(l=>{const o=[];let c='',q=false;for(const ch of l){if(ch=='"')q=!q;else if(ch==','&&!q){o.push(c);c=''}else c+=ch}o.push(c);return o.map(x=>x.trim())}).filter(r=>r.length>=3&&r[0].toLowerCase()!=='role')
+ .map(r=>({role:r[0].toLowerCase(),username:r[1],password:r[2]}))}
+async function getAccounts(){const url=cfg();if(!url)return DEMO;
+ try{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw 0;const a=parseCSV(await r.text());localStorage.setItem('ngaji_acc',JSON.stringify(a));return a}
+ catch(x){const c=localStorage.getItem('ngaji_acc');if(c)return JSON.parse(c);throw new Error('Tidak bisa membaca Google Sheet. Periksa koneksi & link CSV.')}}
+const isApi=()=>cfg().includes('script.google.com');
+async function api(action,o){const r=await fetch(cfg(),{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...o})});return r.json()}
+async function pull(){if(!S||!S.pw||!isApi())return;try{const d=await api('getdata',{u:S.username,p:S.pw});if(d.ok){if(d.data&&d.data.kelompok)db=d.data;else if(S.role!=='owner')db={kelompok:[]};localStorage.setItem(KEY,JSON.stringify(db));if(!document.querySelector('.ov'))render()}}catch(x){}}
+function push(){if(!S||!S.pw||!canEdit()||!isApi())return;api('save',{u:S.username,p:S.pw,data:db}).catch(()=>{})}
+async function doLogin(){const u=document.getElementById('u').value.trim(),p=document.getElementById('p').value;st.err='';
+ try{let m;
+  if(isApi()){const r=await api('login',{u,p});if(!r.ok){st.err='Username atau password salah.';return render()}m={role:r.role,username:r.username,pw:p}}
+  else{const acc=await getAccounts();const f=acc.find(a=>a.username.toLowerCase()===u.toLowerCase()&&a.password===p);if(!f){st.err='Username atau password salah.';return render()}m={role:f.role,username:f.username}}
+  S=m;localStorage.setItem(SKEY,JSON.stringify(S));st.view='home';await pull();render()}
+ catch(x){st.err=isApi()?'Tidak bisa terhubung ke Google Apps Script. Periksa URL & koneksi internet.':x.message;render()}}
+function logout(){S=null;localStorage.removeItem(SKEY);render()}
+
+/* ---------- Helpers data ---------- */
+function myGroups(){if(!S)return[];if(S.role==='owner')return db.kelompok;
+ if(S.role==='guru')return db.kelompok.filter(k=>k.guru.toLowerCase()===S.username.toLowerCase());
+ return db.kelompok.filter(k=>k.murid.some(m=>m.nama.toLowerCase()===S.username.toLowerCase()))}
+const G=id=>db.kelompok.find(k=>k.id===id);
+function visibleMurid(k){return S.role==='ortu'?k.murid.filter(m=>m.nama.toLowerCase()===S.username.toLowerCase()):k.murid}
+function pct(k,ms){const days=Object.keys(k.absen).filter(d=>d.slice(0,7)===today().slice(0,7)||true);let h=0,t=0;days.forEach(d=>ms.forEach(m=>{const v=k.absen[d][m.id];if(v){t++;if(v==='H')h++}}));return t?Math.round(h/t*100):0}
+function mpct(k,m){return pct(k,[m])}
+function tpct(k,m){const c=k.capaian[m.id]||{};return k.target.length?Math.round(k.target.filter(t=>c[t.id]).length/k.target.length*100):0}
+function lastDay(k){const d=Object.keys(k.absen).sort().pop();return d?new Date(d).toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'short'}):'Belum ada'}
+const barCls=p=>p>=70?'grn':p>=40?'':'red';
+
+/* ---------- Sheet modal ---------- */
+function sheet(title,html,onOk,okText='Simpan'){const o=document.createElement('div');o.className='ov';
+ o.innerHTML=`<div class="sh"><div class="row sp"><h3>${title}</h3><button class="back" data-x>✕</button></div>${html}${onOk?`<button class="btn full" style="margin-top:16px" data-ok>${okText}</button>`:''}</div>`;
+ o.onclick=ev=>{if(ev.target===o||ev.target.dataset.x!==undefined)o.remove()};document.body.appendChild(o);
+ if(onOk)o.querySelector('[data-ok]').onclick=()=>{if(onOk(o)!==false){o.remove();save();render()}};return o}
+
+/* ---------- PDF ---------- */
+function pdf(title,body,raw){document.getElementById('print').innerHTML=raw?body:`<h1>${e(title)}</h1><div style="color:#555;font-size:12px;margin-bottom:10px">Dicetak ${new Date().toLocaleString('id-ID')} · oleh ${e(S.username)} (${roleLabel[S.role]})</div>${body}`;setTimeout(()=>window.print(),80)}
+function tblRekap(k,ms){const ds=Object.keys(k.absen).sort();return `<h2>${e(k.nama)} — ${e(k.tingkat)}</h2><table><tr><th>Murid</th>${ds.map(d=>`<th>${d.slice(5)}</th>`).join('')}<th>% Hadir</th><th>% Target</th></tr>${ms.map(m=>`<tr><td>${e(m.nama)}</td>${ds.map(d=>`<td>${k.absen[d][m.id]||'-'}</td>`).join('')}<td>${mpct(k,m)}%</td><td>${tpct(k,m)}%</td></tr>`).join('')}</table>`}
+function tblJurnal(k){return `<h2>Jurnal ${e(k.nama)}</h2><table>${[...k.jurnal].sort((a,b)=>b.tgl.localeCompare(a.tgl)).map(j=>`<tr><td style="width:90px">${j.tgl}</td><td>${e(j.teks)}</td></tr>`).join('')}</table>`}
+function tblTarget(k,ms){return `<h2>Target ${e(k.nama)}</h2><table><tr><th>Murid</th>${k.target.map(t=>`<th>${e(t.nama)}</th>`).join('')}</tr>${ms.map(m=>`<tr><td>${e(m.nama)}</td>${k.target.map(t=>`<td>${(k.capaian[m.id]||{})[t.id]?'✔':'—'}</td>`).join('')}</tr>`).join('')}</table>`}
+const exportGroup=k=>pdf('Laporan '+k.nama,tblRekap(k,visibleMurid(k))+tblTarget(k,visibleMurid(k))+tblJurnal(k));
+const exportAll=()=>pdf('Laporan Semua Kelompok',myGroups().map(k=>tblRekap(k,visibleMurid(k))+tblTarget(k,visibleMurid(k))+tblJurnal(k)).join(''));
+function raport(k,m){
+ const hp=mpct(k,m),tp=tpct(k,m),c=k.capaian[m.id]||{},avg=Math.round((hp+tp)/2);
+ const pr=avg>=85?['A','Istimewa']:avg>=70?['B','Baik']:avg>=55?['C','Cukup']:['D','Perlu Bimbingan'];
+ const cnt={H:0,I:0,A:0};Object.values(k.absen).forEach(a=>{if(a[m.id])cnt[a[m.id]]++});
+ const cats={};k.target.forEach(t=>{(cats[t.kat||'Lainnya']=cats[t.kat||'Lainnya']||[]).push(t)});
+ const ring=(v,l,col,txt)=>`<div class="rp-ring"><div class="rp-c" style="background:conic-gradient(${col} ${v*3.6}deg,#e6eafc 0)"><b>${txt||v+'%'}</b></div><span>${l}</span></div>`;
+ const jr=[...k.jurnal].sort((a,b)=>b.tgl.localeCompare(a.tgl)).slice(0,6);
+ const note=`${e(m.nama)} menunjukkan perkembangan yang ${pr[1].toLowerCase()} dengan kehadiran ${hp}% dan capaian target ${tp}%. ${tp>=70?'Pertahankan semangat belajarnya, barakallahu fiik.':'Mohon dukungan orang tua untuk mengulang hafalan di rumah.'}`;
+ const tgl=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+ pdf('',`<div class="rp">
+ <div class="rp-top"><div class="rp-bas">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div><h1>RAPORT</h1><div class="rp-sub">Laporan Perkembangan Ngaji · Semester ${new Date().getMonth()<6?'Genap':'Ganjil'} ${new Date().getFullYear()}</div></div>
+ <div class="rp-id"><div><div class="rp-lbl">Nama Murid</div><div class="rp-name">${e(m.nama)}</div><div class="rp-meta">${e(k.nama)} · ${e(k.tingkat)} · ${e(k.desa)}, ${e(k.daerah)}</div></div><div class="rp-grade"><b>${pr[0]}</b><span>${pr[1]}</span></div></div>
+ <div class="rp-rings">${ring(hp,'Kehadiran','#1d3fe0')}${ring(tp,'Capaian Target','#16a34a')}${ring(avg,'Nilai Akhir','#f59e0b',pr[0])}</div>
+ <div class="rp-box"><div class="rp-sec">Rekap Kehadiran</div><div class="rp-pills"><span class="ok">✔ Hadir ${cnt.H}</span><span class="iz">✉ Izin ${cnt.I}</span><span class="al">✖ Alpa ${cnt.A}</span><span>Total ${cnt.H+cnt.I+cnt.A} pertemuan</span></div></div>
+ <div class="rp-box"><div class="rp-sec">Capaian Target</div>${Object.keys(cats).map(n=>{const ts=cats[n],d=ts.filter(t=>c[t.id]).length,pp=Math.round(d/ts.length*100);return `<div style="margin-bottom:9px"><div class="rp-row"><b>${e(n)}</b><span>${d}/${ts.length} · ${pp}%</span></div><div class="rp-bar"><i style="width:${pp}%"></i></div><div>${ts.map(t=>`<span class="rp-chip ${c[t.id]?'ok':''}">${c[t.id]?'✔':'○'} ${e(t.nama)}</span>`).join('')}</div></div>`}).join('')||'<span class="rp-meta">Belum ada target.</span>'}</div>
+ <div class="rp-box"><div class="rp-sec">Jurnal Pengajian</div><div class="rp-tl">${jr.map(j=>`<div><b>${j.tgl}</b> — ${e(j.teks)}</div>`).join('')||'<span class="rp-meta">Belum ada jurnal.</span>'}</div></div>
+ <div class="rp-box"><div class="rp-sec">Catatan Guru</div><div class="rp-note">${note}</div></div>
+ <div class="rp-sign"><div>Orang Tua / Wali<hr>(............................)</div><div>Guru Pengajar<hr><b>${e(k.guru)}</b></div><div>Owner<hr>(............................)</div></div>
+ <div class="rp-ft">✦ ${e(k.desa)}, ${tgl} ✦ Barakallahu fiikum ✦</div></div>`,true)}
+
+/* ---------- Actions ---------- */
+const A={
+ login:doLogin,logout,
+ go:el=>{st.view=el.dataset.v;st.gid=null;render()},
+ open:el=>{st.view='group';st.gid=el.dataset.id;render()},
+ sub:el=>{st.view=el.dataset.v;render()},
+ filter:el=>{st.filter=el.dataset.v;render()},
+ back:()=>{st.view=st.view==='murid'?'murids':st.view==='group'?'home':'group';if(st.view==='home')st.gid=null;render()},
+ pdfAll:exportAll,pdfGroup:()=>exportGroup(G(st.gid)),
+ absen:el=>{const k=G(el.dataset.id||st.gid),ms=k.murid;const tmp={};const o=sheet('Absen · '+e(k.nama),`<label>Tanggal</label><input type="date" id="dt" value="${today()}"><div id="lst">${ms.map(m=>`<div class="row sp" style="margin-top:12px"><span class="b">${e(m.nama)}</span><div class="seg" data-m="${m.id}" style="width:170px">${['H','I','A'].map(v=>`<button class="${v}" data-v="${v}">${v}</button>`).join('')}</div></div>`).join('')}</div><p class="mut" style="margin-top:12px">H = Hadir · I = Izin · A = Alpa</p>`,o=>{const d=o.querySelector('#dt').value;k.absen[d]=k.absen[d]||{};ms.forEach(m=>{if(tmp[m.id])k.absen[d][m.id]=tmp[m.id]})},'Simpan Absen');
+  const paint=()=>o.querySelectorAll('.seg').forEach(s=>s.querySelectorAll('button').forEach(b=>b.classList.toggle('on',tmp[s.dataset.m]===b.dataset.v)));
+  const d0=()=>{const d=o.querySelector('#dt').value;Object.keys(tmp).forEach(x=>delete tmp[x]);Object.entries(k.absen[d]||{}).forEach(([a,b])=>tmp[a]=b);paint()};d0();o.querySelector('#dt').onchange=d0;
+  o.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{tmp[b.parentNode.dataset.m]=b.dataset.v;paint()})},
+ newGroup:()=>sheet('Kelompok Baru',`<label>Nama Kelompok</label><input id="a" placeholder="cth: Kelompok Masjid Al-Ikhlas"><label>Tingkatan Ngaji</label><select id="b">${['Caberawit','Pra Remaja','Remaja','Usia Nikah','Muda-Mudi','Ngaji Kelompok','Lainnya'].map(x=>`<option>${x}</option>`).join('')}</select><label>Guru Pengajar (sama dengan username guru)</label><input id="g" value="${S.role==='guru'?e(S.username):''}"><label>Desa</label><input id="c"><label>Daerah</label><input id="d">`,o=>{const v=i=>o.querySelector('#'+i).value.trim();if(!v('a'))return false;db.kelompok.push({id:uid(),nama:v('a'),tingkat:v('b'),guru:v('g')||S.username,desa:v('c'),daerah:v('d'),murid:[],absen:{},target:[],capaian:{},jurnal:[]})}),
+ editGroup:()=>{const k=G(st.gid);sheet('Edit Kelompok',`<label>Nama</label><input id="a" value="${e(k.nama)}"><label>Guru</label><input id="g" value="${e(k.guru)}"><label>Desa</label><input id="c" value="${e(k.desa)}"><label>Daerah</label><input id="d" value="${e(k.daerah)}">`,o=>{k.nama=o.querySelector('#a').value;k.guru=o.querySelector('#g').value;k.desa=o.querySelector('#c').value;k.daerah=o.querySelector('#d').value})},
+ delGroup:()=>{if(confirm('Hapus kelompok ini?')){db.kelompok=db.kelompok.filter(k=>k.id!==st.gid);st.view='home';save();render()}},
+ addMurid:()=>{const k=G(st.gid);sheet('Tambah Murid',`<label>Satu nama per baris (nama = username orang tua)</label><textarea id="a" rows="6"></textarea>`,o=>{o.querySelector('#a').value.split('\n').map(x=>x.trim()).filter(Boolean).forEach(n=>k.murid.push({id:uid(),nama:n}))})},
+ editMurid:el=>{const k=G(st.gid),m=k.murid.find(x=>x.id===el.dataset.id);sheet('Ubah Nama Murid',`<input id="a" value="${e(m.nama)}">`,o=>{m.nama=o.querySelector('#a').value.trim()||m.nama})},
+ delMurid:el=>{if(confirm('Hapus murid?')){const k=G(st.gid);k.murid=k.murid.filter(m=>m.id!==el.dataset.id);save();render()}},
+ murid:el=>{st.mid=el.dataset.id;st.view='murid';render()},
+ toggleT:el=>{if(!canEdit())return;const k=G(st.gid);k.capaian[el.dataset.m]=k.capaian[el.dataset.m]||{};k.capaian[el.dataset.m][el.dataset.t]=!k.capaian[el.dataset.m][el.dataset.t];save();render()},
+ addTarget:el=>{const k=G(st.gid);const cats=[...new Set([...KATS,...k.target.map(t=>t.kat).filter(Boolean)])];
+  const o=sheet('Tambah Target',`<label>Nama Target</label><input id="a" placeholder="cth: Hafalan Doa Makan"><label>Kategori</label><select id="b">${cats.map(x=>`<option>${e(x)}</option>`).join('')}<option value="__c">Lainnya (custom)…</option></select><div id="cx" style="display:none"><label>Nama Kategori Baru</label><input id="c" placeholder="cth: Praktik Wudhu"></div>`,o=>{const n=o.querySelector('#a').value.trim();if(!n)return false;let kat=o.querySelector('#b').value;if(kat==='__c')kat=o.querySelector('#c').value.trim()||'Lainnya';k.target.push({id:uid(),nama:n,kat})});
+  const sel=o.querySelector('#b'),cx=o.querySelector('#cx'),tg=()=>cx.style.display=sel.value==='__c'?'block':'none';sel.onchange=tg;if(el&&el.dataset.custom){sel.value='__c';tg()}},
+ delTarget:el=>{const k=G(st.gid);k.target=k.target.filter(t=>t.id!==el.dataset.id);save();render()},
+ addJurnal:()=>{const k=G(st.gid);sheet('Tambah Jurnal',`<label>Tanggal</label><input type="date" id="d" value="${today()}"><label>Materi</label><textarea id="a" rows="4"></textarea>`,o=>{const v=o.querySelector('#a').value.trim();if(!v)return false;k.jurnal.push({tgl:o.querySelector('#d').value,teks:v})})},
+ delJurnal:el=>{const k=G(st.gid);k.jurnal.splice(+el.dataset.i,1);save();render()},
+ raport:()=>{const k=G(st.gid);raport(k,k.murid.find(m=>m.id===st.mid))},
+ setSheet:()=>sheet('Hubungkan Google Sheet',`<p class="mut">Tempel URL <b>Apps Script Web App</b> (berakhiran /exec) dari file Code.gs — login & data tersimpan di Google Sheet Anda. Link CSV hasil publikasi juga masih didukung (khusus login). Kosongkan untuk mode demo.</p><input id="a" value="${e(localStorage.getItem(CFG)||'')}" placeholder="https://script.google.com/macros/s/.../exec">`,o=>{const v=o.querySelector('#a').value.trim();v?localStorage.setItem(CFG,v):localStorage.removeItem(CFG);localStorage.removeItem('ngaji_acc')}),
+ tpl:()=>{const rows=[['role','username','password'],['owner','admin','ganti-password']];db.kelompok.forEach(k=>{if(!rows.find(r=>r[1]===k.guru))rows.push(['guru',k.guru,'ganti-password']);k.murid.forEach(m=>rows.push(['ortu',m.nama,'ganti-password']))});
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'}));a.download='template-akun-google-sheet.csv';a.click()}
+};
+document.addEventListener('click',ev=>{const el=ev.target.closest('[data-a]');if(el&&A[el.dataset.a])A[el.dataset.a](el)});
+document.addEventListener('keydown',ev=>{if(ev.key==='Enter'&&document.getElementById('p')&&!document.querySelector('.ov'))doLogin()});
+
+/* ---------- Views ---------- */
+const hdr=(t,sub,extra='')=>`<div class="row sp" style="margin-bottom:14px"><div class="row"><button class="back" data-a="back">‹</button><div><div class="b" style="font-size:18px">${t}</div><div class="mut">${sub||''}</div></div></div>${extra}</div>`;
+const ro=()=>S.role==='ortu'?'<div class="ro">👁 Mode lihat saja — Anda hanya dapat melihat data anak Anda.</div>':'';
+function vLogin(){return `<div class="login"><div class="card"><div class="logo">📖</div><h2 style="text-align:center">Ngaji Kelompok</h2><p class="mut" style="text-align:center;margin:4px 0 14px">Absensi, target & raport kelompok ngaji</p>
+<label>Username</label><input id="u" placeholder="admin / nama guru / nama anak" autocapitalize="off"><label>Password</label><input id="p" type="password" placeholder="••••••••"><button class="btn full" style="margin-top:18px" data-a="login">Masuk</button>${st.err?`<div class="err">${e(st.err)}</div>`:''}
+<p class="mut" style="margin-top:16px;text-align:center">${cfg()?'Password dibaca dari Google Sheet.':'Mode demo: admin/admin123 · Akbar/guru123 · Adam/ortu123'}</p></div></div>`}
+function vHome(){const gs=myGroups(),ts=['Semua',...new Set(gs.map(g=>g.tingkat))];
+ return `<div class="row sp" style="margin-bottom:14px"><div class="row"><div class="ic" style="border-radius:50%;background:var(--blue);color:#fff;font-weight:800">${e(S.username[0].toUpperCase())}</div><div><div class="mut">${new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'})}</div><div class="b">${e(S.username)} · ${roleLabel[S.role]}</div></div></div>${canEdit()?'<button class="btn" data-a="newGroup" style="width:40px;height:40px;padding:0;font-size:20px">+</button>':''}</div>
+ <div class="hero"><p>Bacalah Al-Qur’an, karena pada hari kiamat ia akan datang memberi syafaat kepada pembacanya.</p><h2 style="font-size:15px;margin-top:6px">HR. Muslim</h2></div>${ro()}
+ <div class="chips">${ts.map(t=>`<div class="chip ${st.filter===t?'on':''}" data-a="filter" data-v="${e(t)}">${e(t)}</div>`).join('')}</div>
+ ${gs.filter(g=>st.filter==='Semua'||g.tingkat===st.filter).map(g=>{const p=pct(g,visibleMurid(g));return `<div class="card"><div class="row sp"><div class="b" style="font-size:16px">${e(g.nama).toUpperCase()}</div><span class="tag">${e(g.tingkat)}</span></div><div class="mut">📍 ${e(g.desa)} · ${e(g.daerah)}</div><div class="row sp" style="margin-top:10px"><span class="mut">Terakhir diabsen ${lastDay(g)}</span><b style="color:${p>=50?'var(--green)':'var(--red)'};font-size:13px">${p}% hadir</b></div><div class="bar ${barCls(p)}"><i style="width:${p}%"></i></div><div class="row sp">${canEdit()?`<button class="btn" data-a="absen" data-id="${g.id}">✓ Absen</button>`:'<span></span>'}<button class="btn g" data-a="open" data-id="${g.id}">Menu kelompok ›</button></div></div>`}).join('')||'<div class="card mut">Belum ada data untuk akun ini.</div>'}`}
+function vGroup(){const k=G(st.gid),ms=visibleMurid(k);
+ return hdr(e(k.nama),`${e(k.tingkat)} · ${e(k.desa)}, ${e(k.daerah)}`,canEdit()?'<button class="btn g" data-a="editGroup">Edit</button>':'')+ro()+
+ `<div class="hero"><div class="stats"><div class="stat"><b>${ms.length}</b><span>Murid</span></div><div class="stat"><b>${pct(k,ms)}%</b><span>Hadir</span></div><div class="stat"><b>${Object.keys(k.absen).length}</b><span>Pertemuan</span></div></div>${canEdit()?`<button class="btn w" style="margin-top:14px" data-a="absen">✓ Absen Sekarang</button>`:''}<button class="btn w" style="margin-top:10px;background:rgba(255,255,255,.18);color:#fff" data-a="pdfGroup">⬇ Ekspor PDF Kelompok</button></div>
+ <div class="card">${[['murids','👥','Murid & Capaian','Daftar murid, target dan raport'],['rekap','📊','Rekap Kehadiran','Ringkasan hadir per murid'],['jurnal','📝','Jurnal Pengajian','Materi tiap pertemuan'],['targets','🎯','Kelola Target','Tambah target sesuai keinginan']].map(x=>`<div class="item" data-a="sub" data-v="${x[0]}"><div class="ic">${x[1]}</div><div style="flex:1"><div class="b">${x[2]}</div><div class="mut">${x[3]}</div></div>›</div>`).join('')}</div>
+ ${canEdit()?'<button class="btn r full" data-a="delGroup">Hapus Kelompok</button>':''}`}
+function vMurids(){const k=G(st.gid);return hdr('Murid',e(k.nama),canEdit()?'<button class="btn" data-a="addMurid">+ Tambah</button>':'')+ro()+`<div class="card">${visibleMurid(k).map(m=>`<div class="item" data-a="murid" data-id="${m.id}"><div class="ic">🧒</div><div style="flex:1"><div class="b">${e(m.nama)}</div><div class="mut">Hadir ${mpct(k,m)}% · Target ${tpct(k,m)}%</div></div>${canEdit()?`<button class="btn g" data-a="editMurid" data-id="${m.id}" onclick="event.stopPropagation()">✎</button><button class="btn r" data-a="delMurid" data-id="${m.id}" onclick="event.stopPropagation()">🗑</button>`:'›'}</div>`).join('')||'<span class="mut">Belum ada murid.</span>'}</div>`}
+function vMurid(){const k=G(st.gid),m=k.murid.find(x=>x.id===st.mid);if(!m)return'';const c=k.capaian[m.id]||{};
+ return hdr(e(m.nama),e(k.nama))+`<div class="hero"><div class="stats"><div class="stat"><b>${mpct(k,m)}%</b><span>Kehadiran</span></div><div class="stat"><b>${tpct(k,m)}%</b><span>Target</span></div><div class="stat"><b>${Object.values(k.absen).filter(a=>a[m.id]==='H').length}</b><span>Hadir</span></div></div><button class="btn w" style="margin-top:14px" data-a="raport">⬇ Unduh PDF Raport</button></div>${ro()}
+ <div class="card"><div class="b" style="margin-bottom:6px">Capaian Target</div>${k.target.map(t=>`<div class="item" data-a="toggleT" data-m="${m.id}" data-t="${t.id}"><div class="ic" style="${c[t.id]?'background:var(--green);color:#fff':''}">${c[t.id]?'✓':'○'}</div><div class="b">${e(t.nama)}</div></div>`).join('')||'<span class="mut">Belum ada target.</span>'}</div>`}
+function vRekap(g){const gs=g?[g]:myGroups();return `<div class="hero"><h2>Rekap Absensi</h2><p>${gs.length} kelompok</p></div>`+gs.map(k=>{const ms=visibleMurid(k);return `<div class="card"><div class="row sp"><div class="b">${e(k.nama)}</div><span class="tag">${pct(k,ms)}% hadir</span></div>${ms.map(m=>{const p=mpct(k,m);return `<div style="margin-top:10px"><div class="row sp"><span style="font-size:13px;font-weight:600">${e(m.nama)}</span><b style="font-size:12px">${p}%</b></div><div class="bar ${barCls(p)}"><i style="width:${p}%"></i></div></div>`}).join('')}</div>`}).join('')+`<button class="btn full" data-a="pdfAll">⬇ Ekspor Semua ke PDF</button>`}
+function vJurnal(){const k=G(st.gid);return hdr('Jurnal',e(k.nama),canEdit()?'<button class="btn" data-a="addJurnal">+ Tambah</button>':'')+`<div class="card">${k.jurnal.map((j,i)=>({j,i})).sort((a,b)=>b.j.tgl.localeCompare(a.j.tgl)).map(({j,i})=>`<div class="item" style="cursor:default"><div style="flex:1"><div class="b" style="font-size:12px;color:var(--blue)">${j.tgl}</div><div style="font-size:14px">${e(j.teks)}</div></div>${canEdit()?`<button class="btn r" data-a="delJurnal" data-i="${i}">🗑</button>`:''}</div>`).join('')||'<span class="mut">Belum ada jurnal.</span>'}</div>`}
+const KATS=['Hafalan Doa','Hafalan Surat','Akhlak (Karakter)','Bacaan Tilawati/Qur’an','Makna Al-Qur’an','Makna Hadis'];
+function vTargets(){const k=G(st.gid),cats={};k.target.forEach(t=>{(cats[t.kat||'Lainnya']=cats[t.kat||'Lainnya']||[]).push(t)});
+ return hdr('Kelola Target',e(k.nama),canEdit()?'<button class="btn" data-a="addTarget">+ Tambah</button>':'')+ro()+
+ (Object.keys(cats).map(c=>`<div class="card"><div class="row sp" style="margin-bottom:4px"><div class="b">${e(c)}</div><span class="tag">${cats[c].length} target</span></div>${cats[c].map(t=>`<div class="item" style="cursor:default"><div class="ic">🎯</div><div class="b" style="flex:1">${e(t.nama)}</div>${canEdit()?`<button class="btn r" data-a="delTarget" data-id="${t.id}">🗑</button>`:''}</div>`).join('')}</div>`).join('')||'<div class="card mut">Belum ada target.</div>')+
+ (canEdit()?`<div class="card" style="border:2px dashed var(--blue2);box-shadow:none"><div class="b">✨ Lainnya (Custom)</div><p class="mut" style="margin:4px 0 12px">Buat target & kategori sendiri sesuai kebutuhan kelompok, misalnya Praktik Wudhu, Adab Harian, atau Hafalan Khusus.</p><button class="btn full" data-a="addTarget" data-custom="1">+ Buat Target Custom</button></div>`:'')}
+function vMore(){return `<div class="card row"><div class="ic" style="border-radius:50%;background:var(--blue);color:#fff;font-weight:800">${e(S.username[0].toUpperCase())}</div><div><div class="b">${e(S.username)}</div><div class="mut">${roleLabel[S.role]}</div></div></div>${ro()}
+ <div class="card"><div class="item" data-a="pdfAll"><div class="ic">📄</div><div style="flex:1"><div class="b">Ekspor Semua Data ke PDF</div><div class="mut">Rekap, target & jurnal</div></div>›</div>
+ ${S.role==='owner'?`<div class="item" data-a="setSheet"><div class="ic">📗</div><div style="flex:1"><div class="b">Hubungkan Google Sheet</div><div class="mut">${cfg()?(isApi()?'Terhubung (Apps Script)':'Terhubung (CSV)'):'Belum diatur (mode demo)'}</div></div>›</div><div class="item" data-a="tpl"><div class="ic">⬇</div><div style="flex:1"><div class="b">Unduh Template Akun (CSV)</div><div class="mut">Impor ke Google Sheet</div></div>›</div>`:''}</div>
+ <button class="btn r full" data-a="logout">⎋ Keluar Akun</button>`}
+
+function render(){const app=document.getElementById('app');document.querySelector('nav')?.remove();
+ if(!S){app.innerHTML=vLogin();app.style.padding=0;return}app.style.padding='';
+ const v=st.view;let h='';
+ if(v==='home')h=vHome();else if(v==='rekap')h=vRekap();else if(v==='more')h=vMore();
+ else if(!G(st.gid))h=vHome();
+ else if(v==='group')h=vGroup();else if(v==='murids')h=vMurids();else if(v==='murid')h=vMurid();
+ else if(v==='jurnal')h=vJurnal();else if(v==='targets')h=vTargets();
+ else if(v==='rekapg')h=hdr('Rekap',e(G(st.gid).nama))+vRekap(G(st.gid));
+ app.innerHTML=h;
+ const n=document.createElement('nav');const cur=['home','group','murids','murid','jurnal','targets'].includes(v)?'home':v;
+ n.innerHTML=[['home','🏠','Beranda'],['rekap','📊','Rekap'],['more','⚙️','Lainnya']].map(x=>`<button class="${cur===x[0]?'on':''}" data-a="go" data-v="${x[0]}"><span>${x[1]}</span>${x[2]}</button>`).join('');document.body.appendChild(n)}
+A.sub=el=>{st.view=el.dataset.v==='rekap'?'rekapg':el.dataset.v;render()};
+render();
+</script>
+</body>
+</html>
